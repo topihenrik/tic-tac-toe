@@ -7,8 +7,6 @@ const gameBoard = (() => {
         return;
     }
 
-    
-
     const checkTie = () => {
         let i, j;
         for (i=0;i<3;i++) {
@@ -20,7 +18,6 @@ const gameBoard = (() => {
         }
         return -1;
     }
-
 
     const checkEnd = () => {
         let winRow = [0, 0, 0];
@@ -60,13 +57,8 @@ const gameBoard = (() => {
         return 0;
     }
 
-    
-
-
-
-
     const setMark = (x, y, side) => {
-        // side meanings: 1=X and 2=O
+        // side meanings: 0=empty, 1=X and 2=O.
         board[x][y] = side;
         return;
     }
@@ -104,13 +96,11 @@ const displayController = (() => {
     }
 
     const updateGameBoard = (board) => {
-        
         while (gameBoard.firstChild) {
             gameBoard.removeChild(gameBoard.firstChild);
         }
         createGameBoard(board);
         addBoardClickListener();
-        
         return;
     }
 
@@ -138,7 +128,6 @@ const displayController = (() => {
 
     const updateInfoScreenEnd = (endValue) => {
         const pInfoText = document.querySelector(".info-text");
-        //add functionality
         if (endValue == 1) {
             pInfoText.textContent = "X wins!";
         } else if (endValue == 2) {
@@ -148,7 +137,6 @@ const displayController = (() => {
         }
         return;
     }
-
     return {createGameBoard, updateGameBoard, updateInfoScreenTurn, updateInfoScreenEnd};
 })();
 
@@ -174,7 +162,6 @@ const addBoardClickListener = () => {
                 displayController.updateInfoScreenEnd(endValue);
                 gameBoard.gameFreeze = 1;
             }
-
         }
         e.stopPropagation();
     }, {
@@ -189,9 +176,7 @@ window.onload = function(){
         gameBoard.reset();
         gameBoard.gameFreeze = 0;
         gameBoard.gameTurn = displayController.updateInfoScreenTurn(gameBoard.gameTurn, 1);
-        
         displayController.updateGameBoard(gameBoard.getBoard());
-        
     })
     
 }
